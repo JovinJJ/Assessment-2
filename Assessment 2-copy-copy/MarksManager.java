@@ -10,7 +10,7 @@ import java.io.*;
 import java.util.*;
 import java.io.BufferedReader;
 
-/* this is the class for storing the information about each student*/
+// this is the class for storing the information about each student//
 class Student 
     {
         String name;
@@ -37,7 +37,7 @@ class Student
         @Override
         public String toString()
         {
-            return name+"(" + id + ") - Marks: [" + mark1 + ", " + mark2 + ", " + mark3 + "] Total: " + total;
+            return name+"(" + id + ") - Marks: [" + markNo1 + ", " + markNo2 + ", " + markNo3 + "] Total: " + total;
     
         }
     }
@@ -114,6 +114,9 @@ public class MarksManager
                 if(students.get(j).total>students.get(j+1).total)
                 {
                     //here we swap the  students[j]and students[j+1]
+                    Student temp = students.get(j);
+                    students.set(j, students.get(j + 1));
+                    students.set(j + 1, temp);
                 }
             }
         }
@@ -171,10 +174,8 @@ public class MarksManager
     public static void main(String[] args)
     {
         MarksManager manager=new MarksManager(); 
-        // we create an instance for marksmanager
-        System.out.print("Enter the filename: ");
-        Scanner scanner=new Scanner(System.in);
-        String fileName=scanner.nextLine();
+        
+        String fileName="prog5001_students_grade_2022.csv";
         //reading the filename from user input
         manager.readFromFile(fileName);
         manager.displayMenu();
