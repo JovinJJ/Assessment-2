@@ -47,51 +47,51 @@ public class MarksManager
 {
     private List<Student>students=new ArrayList<>();
     // this is how we read student data from a fie
-    public void readFromFile(String fileName) {
-    try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-        String line;
-        int lineNumber = 0;
-        while ((line = br.readLine()) != null) {
-            lineNumber++;
-            if (line.startsWith("#") || lineNumber == 1 || lineNumber == 2) continue; // skip comment lines and first two lines
+     public void readFromFile(String fileName) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            int lineNumber = 0;
+            while ((line = br.readLine()) != null) {
+                lineNumber++;
+                if (line.startsWith("#") || lineNumber == 1 || lineNumber == 2) continue; 
+                // skip comment lines and first two lines because else it is gonna show error due to alphabets
 
-            String[] parts = line.split(",");
-            if (parts.length == 6) {
-                try {
-                    // part where we extract the student data from the line
-                    String firstName = parts[0].trim();
-                    String lastName = parts[1].trim();
-                    String name = firstName + " " + lastName;
-                    String id = parts[2].trim();
-                    
-                    // Handle missing or invalid marks
-                    int markNo1 = parseMark(parts[3].trim());
-                    int markNo2 = parseMark(parts[4].trim());
-                    int markNo3 = parseMark(parts[5].trim());
+                String[] parts = line.split(",");
+                if (parts.length >= 3) {
+                    try {
+                        // part where we extract the student data from the line
+                        String firstName = parts[0].trim();
+                        String lastName = parts[1].trim();
+                        String name = firstName + " " + lastName;
+                        String id = parts[2].trim();
 
-                    // now we add student into the list
-                    students.add(new Student(name, id, markNo1, markNo2, markNo3));
-                } catch (NumberFormatException e) {
-                    System.err.println("Invalid number format in line: " + line);
+                        // Handle missing or invalid marks
+                        int markNo1 = parts.length > 3 ? parseMark(parts[3].trim()) : 0;
+                        int markNo2 = parts.length > 4 ? parseMark(parts[4].trim()) : 0;
+                        int markNo3 = parts.length > 5 ? parseMark(parts[5].trim()) : 0;
+
+                        // now we add student into the list
+                        students.add(new Student(name, id, markNo1, markNo2, markNo3));
+                    } catch (NumberFormatException e) {
+                        System.err.println("Invalid number format in line: " + line);
+                    }
+                } else {
+                    System.err.println("Invalid line format: " + line);
                 }
-            } else {
-                System.err.println("Invalid line format: " + line);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    } catch (IOException e) {
-        e.printStackTrace();
     }
-}
 
-private int parseMark(String mark) {
-    try {
-        return Integer.parseInt(mark);
-    } catch (NumberFormatException e) {
-        // Handle missing or invalid mark by returning 0 or any default value
-        return 0;
+    private int parseMark(String mark) {
+        try {
+            return Integer.parseInt(mark);
+        } catch (NumberFormatException e) {
+            // Handle missing or invalid mark by returning 0 or any default value
+            return 0;
+        }
     }
-}
-
 
 
     

@@ -1,0 +1,89 @@
+Class Student
+    Attributes:
+        String name
+        String id
+        int markNo1
+        int markNo2
+        int markNo3
+        int total
+
+    Constructor Student(String name, String id, int markNo1, int markNo2, int markNo3)
+        Initialize name, id, markNo1, markNo2, markNo3
+        Calculate total as the sum of markNo1, markNo2, and markNo3
+
+    Method toString()
+        Return a string representation of the student with their marks and total
+
+
+Class MarksManager
+    Attributes:
+        List<Student> students
+
+    Method readFromFile(String fileName)
+        Open the file with BufferedReader
+        Initialize lineNumber to 0
+        For each line in the file
+            Increment lineNumber
+            If the line starts with "#" or lineNumber is 1 or 2
+                Continue to the next line
+            Split the line by comma into parts
+            If parts length is greater than or equal to 3
+                Try to:
+                    Extract and trim firstName, lastName, and id
+                    Combine firstName and lastName to get the full name
+                    Parse markNo1, markNo2, and markNo3 from parts or set to 0 if missing
+                    Add a new Student to the students list
+                Catch NumberFormatException
+                    Print error message for invalid number format
+            Else
+                Print error message for invalid line format
+
+    Method parseMark(String mark)
+        Try to parse the mark as an integer
+        Catch NumberFormatException
+            Return 0 for invalid or missing mark
+
+    Method printStudentMarks()
+        For each student in students
+            Print the student's details
+
+    Method filterStudentByThreshold(int threshold)
+        For each student in students
+            If student's total marks are less than threshold
+                Print the student's details
+
+    Method print5HighestAndLowest()
+        Sort students by total marks using bubble sort
+        Print "Lowest marks TOP 5:"
+        For the first 5 students in the sorted list
+            Print the student's details
+        Print "Highest marks Top 5:"
+        For the last 5 students in the sorted list
+            Print the student's details
+
+    Method displayMenu()
+        Initialize scanner for user input
+        While true
+            Print menu options
+            Read user's choice
+            Switch on choice:
+                Case 1:
+                    Call printStudentMarks()
+                Case 2:
+                    Prompt user for threshold
+                    Read threshold
+                    Call filterStudentByThreshold(threshold)
+                Case 3:
+                    Call print5HighestAndLowest()
+                Case 4:
+                    Exit the loop
+                Default:
+                    Print "Invalid Choice. Try again."
+
+    Method main(String[] args)
+        Create a new MarksManager instance
+        Initialize scanner for user input
+        Prompt user for filename
+        Read filename
+        Call readFromFile(filename)
+        Call displayMenu() 
