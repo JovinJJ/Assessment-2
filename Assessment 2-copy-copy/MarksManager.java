@@ -47,37 +47,52 @@ public class MarksManager
 {
     private List<Student>students=new ArrayList<>();
     // this is how we read student data from a fie
-    public void readFromFile(String fileName)
-    {
-        try (BufferedReader br=new BufferedReader(new FileReader(fileName)))
-        {
-            String line;
-            while ((line=br.readLine()) !=null)
-            {
-                if(line.startsWith("#"))continue;
-                //inorder to ignore the comment lines
-                String[]parts=line.split(",");
-                if(parts.length==5)
-                //part where we extract the student data from the line
-                {
-                    String name= parts[0];
-                    String id = parts[1];
-                    int markNo1= Integer.parseInt(parts[2]);
-                    int markNo2= Integer.parseInt(parts[3]);
-                    int markNo3= Integer.parseInt(parts[4]);
-                    //now we add student into the list
-                    students.add(new Student(name,id,markNo1,markNo2,markNo3));
+    public void readFromFile(String fileName) {
+    try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+        String line;
+        int lineNumber = 0;
+        while ((line = br.readLine()) != null) {
+            lineNumber++;
+            if (line.startsWith("#") || lineNumber == 1 || lineNumber == 2) continue; // skip comment lines and first two lines
+
+            String[] parts = line.split(",");
+            if (parts.length == 6) {
+                try {
+                    // part where we extract the student data from the line
+                    String firstName = parts[0].trim();
+                    String lastName = parts[1].trim();
+                    String name = firstName + " " + lastName;
+                    String id = parts[2].trim();
+                    
+                    // Handle missing or invalid marks
+                    int markNo1 = parseMark(parts[3].trim());
+                    int markNo2 = parseMark(parts[4].trim());
+                    int markNo3 = parseMark(parts[5].trim());
+
+                    // now we add student into the list
+                    students.add(new Student(name, id, markNo1, markNo2, markNo3));
+                } catch (NumberFormatException e) {
+                    System.err.println("Invalid number format in line: " + line);
                 }
-            } 
-            
-        }
-        catch(IOException e)
-            {
-                e.printStackTrace();
+            } else {
+                System.err.println("Invalid line format: " + line);
             }
-            
-        
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
+
+private int parseMark(String mark) {
+    try {
+        return Integer.parseInt(mark);
+    } catch (NumberFormatException e) {
+        // Handle missing or invalid mark by returning 0 or any default value
+        return 0;
+    }
+}
+
+
 
     
     //next is the method to print each and every student details
@@ -107,9 +122,9 @@ public class MarksManager
     {
         //using the bubble sort 
         int n=students.size();
-        for(int i= 0 ;i< n-1;i++)
+        for(int i= 0; i<n-1; i++)
         {
-            for(int j=0;j<n-i-1;j++)
+            for(int j=0; j<n-i-1; j++)
             {
                 if(students.get(j).total>students.get(j+1).total)
                 {
@@ -121,13 +136,13 @@ public class MarksManager
             }
         }
         System.out.println("Lowest marks TOP 5:");
-        for(int i=0;i<5 && i<students.size(); i++)
+        for(int i=0; i<5 && i<students.size(); i++)
         {
             System.out.println(students.get(i));
         
         }
         System.out.println("Highest marks Top 5:");
-        for(int i=students.size()- 1; i>=students.size()-5 && i>=0;i--)
+        for(int i=students.size()- 1; i>=students.size()-5 && i>=0; i--)
         {
             System.out.println(students.get(i));
         }
@@ -174,8 +189,9 @@ public class MarksManager
     public static void main(String[] args)
     {
         MarksManager manager=new MarksManager(); 
-        
-        String fileName="prog5001_students_grade_2022.csv";
+        Scanner scanner=new Scanner(System.in);
+        System.out.print("Enter the filename: ");
+        String fileName=scanner.nextLine();
         //reading the filename from user input
         manager.readFromFile(fileName);
         manager.displayMenu();
