@@ -151,9 +151,32 @@ public class MarksManager
                 
                 case 2:
                     System.out.print("Enter the threshold:");
+                    int threshold=scanner.nextInt();
+                    filterStudentByThreshold(threshold);
+                    break;
                 
+                case 3:
+                   print5highestandlowest();
+                    break;
+                case 4:
+                    return;
+                default:
+                    System.out.println("Invalid Choice. Try again.");
                     
-            }
             }
         }
     }
+    // Next is the main method to run the program
+    
+    public static void main(String[] args)
+    {
+        MarksManager manager=new MarksManager(); 
+        // we create an instance for marksmanager
+        System.out.print("Enter the filename: ");
+        Scanner scanner=new Scanner(System.in);
+        String fileName=scanner.nextLine();
+        //reading the filename from user input
+        manager.readFromFile(fileName);
+        manager.displayMenu();
+    }
+}
