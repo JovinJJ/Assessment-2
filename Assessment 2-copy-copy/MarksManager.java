@@ -8,6 +8,8 @@
 
 import java.io.*; 
 import java.util.*;
+import java.io.BufferedReader;
+
 /* this is the class for storing the information about each student*/
 class Student 
     {
@@ -35,7 +37,8 @@ class Student
         @Override
         public String toString()
         {
-            return name+"("+id=+")-Marks:["+mark1+","+mark2+","+mark3+"]Total:"+total;
+            return name+"(" + id + ") - Marks: [" + mark1 + ", " + mark2 + ", " + mark3 + "] Total: " + total;
+    
         }
     }
     
@@ -46,7 +49,7 @@ public class MarksManager
     // this is how we read student data from a fie
     public void readFromFile(String fileName)
     {
-        try (BufferReader br=new BufferReader(new FileReader(fileName)))
+        try (BufferedReader br=new BufferedReader(new FileReader(fileName)))
         {
             String line;
             while ((line=br.readLine()) !=null)
@@ -143,6 +146,12 @@ public class MarksManager
             {
                 case 1:
                     printStudentMarks();
+                    //here we print all the student marks
+                    break;
+                
+                case 2:
+                    System.out.print("Enter the threshold:");
+                
                     
             }
             }
