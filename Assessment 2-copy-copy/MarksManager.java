@@ -78,6 +78,73 @@ public class MarksManager
 
     
     //next is the method to print each and every student details
+    public void printStudentMarks()
+    {
+        for(Student student:students)
+        {
+            System.out.println(student);
+        
+        }
+    }
     
+    //To filter and print students whos marks are below a threshold we do this://
+    public void filterStudentByThreshold(int threshold)
+    {
+        for(Student student:students)
+        {
+          if(student.total<threshold)
+          {
+            System.out.println(student);
+          }
+        }
+    }
     
-    
+    // here we sort the students by total marks using the bubble sort method and print the top 5 highest and lowest mark
+    public void print5highestandlowest()
+    {
+        //using the bubble sort 
+        int n=students.size();
+        for(int i= 0 ;i< n-1;i++)
+        {
+            for(int j=0;j<n-i-1;j++)
+            {
+                if(students.get(j).total>students.get(j+1).total)
+                {
+                    //here we swap the  students[j]and students[j+1]
+                }
+            }
+        }
+        System.out.println("Lowest marks TOP 5:");
+        for(int i=0;i<5 && i<students.size(); i++)
+        {
+            System.out.println(students.get(i));
+        
+        }
+        System.out.println("Highest marks Top 5:");
+        for(int i=students.size()- 1; i>=students.size()-5 && i>=0;i--)
+        {
+            System.out.println(students.get(i));
+        }
+    }
+    //now we display the menu for the interaction
+    public void displayMenu()
+    {
+        Scanner scanner=new Scanner(System.in);
+        while(true)
+        {
+            System.out.println("\nMenu:");
+            System.out.println("1. Print the Student Marks");
+            System.out.println("2. Filter the students by threshold");
+            System.out.println("3. Print Top 5 Highest and Lowest Marks:");
+            System.out.println("4. exit:");
+            System.out.println("Enter your choice:");
+            int choice = scanner.nextInt();
+            switch (choice)
+            {
+                case 1:
+                    printStudentMarks();
+                    
+            }
+            }
+        }
+    }
