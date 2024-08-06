@@ -51,8 +51,26 @@ public class MarksManager
             String line;
             while ((line=br.readLine()) !=null)
             {
-                
+                if(line.startsWith("#"))continue;
+                //inorder to ignore the comment lines
+                String[]parts=line.split(",");
+                if(parts.length==5)
+                //part where we extract the student data from the line
+                {
+                    String name= parts[0];
+                    String id = parts[1];
+                    int markNo1= Integer.parseInt(parts[2]);
+                    int markNo2= Integer.parseInt(parts[3]);
+                    int markNo3= Integer.parseInt(parts[4]);
+                    //now we add student into the list
+                    students.add(new Student(name,id,markNo1,markNo2,markNo3));
+                }
+            } 
+            catch(IOException e)
+            {
+                e.printStackTrace();
             }
         }
+        
     }
     
