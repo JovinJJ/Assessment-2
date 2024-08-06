@@ -66,11 +66,18 @@ public class MarksManager
                     students.add(new Student(name,id,markNo1,markNo2,markNo3));
                 }
             } 
-            catch(IOException e)
+            
+        }
+        catch(IOException e)
             {
                 e.printStackTrace();
             }
-        }
+            
         
     }
+
+    
+    //next is the method to print each and every student details
+    
+    
     
