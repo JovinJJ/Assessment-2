@@ -43,8 +43,12 @@ class Student
         @Override
         public String toString()
         {
-            return name+"(" + id + ") - Marks: [" + markNo1 + ", " + markNo2 + ", " + markNo3 + "] Total: " + total;
+            return Firstname+ " "+Lastname+ "(" + id + ") - Marks: [" + markNo1 + ", " + markNo2 + ", " + markNo3 + "] Total: " + total;
     
+        }
+        public double getTotalMarks()
+        {
+            return total;
         }
     }
     
@@ -66,18 +70,18 @@ public class MarksManager
                 if (parts.length >= 3) {
                     try {
                         // part where we extract the student data from the line
-                        String firstName = parts[0].trim();
-                        String lastName = parts[1].trim();
-                        String name = firstName + " " + lastName;
+                        String Firstname = parts[0].trim();
+                        String Lastname = parts[1].trim();
+
                         String id = parts[2].trim();
 
                         // Handle missing or invalid marks
-                        int markNo1 = parts.length > 3 ? parseMark(parts[3].trim()) : 0;
-                        int markNo2 = parts.length > 4 ? parseMark(parts[4].trim()) : 0;
-                        int markNo3 = parts.length > 5 ? parseMark(parts[5].trim()) : 0;
+                        double markNo1 = parts.length > 3 ? parseDoubleWithDefault(parts[3].trim(),0.0):0.0;
+                        double markNo2 = parts.length > 4 ? parseDoubleWithDefault(parts[4].trim(),0.0):0.0;
+                        double markNo3 = parts.length > 5 ? parseDoubleWithDefault(parts[5].trim(),0.0):0.0;
 
                         // now we add student into the list
-                        students.add(new Student(name, id, markNo1, markNo2, markNo3));
+                        students.add(new Student(Firstname,Lastname, id, markNo1, markNo2, markNo3));
                     } catch (NumberFormatException e) {
                         System.err.println("Invalid number format in line: " + line);
                     }
@@ -90,12 +94,12 @@ public class MarksManager
         }
     }
 
-    private int parseMark(String mark) {
+    private double parseDoubleWithDefault(String str, double defaultValue) {
         try {
-            return Integer.parseInt(mark);
+            return Double.parseDouble(str);
         } catch (NumberFormatException e) {
             // Handle missing or invalid mark by returning 0 or any default value
-            return 0;
+            return defaultValue;
         }
     }
 
@@ -116,7 +120,7 @@ public class MarksManager
     {
         for(Student student:students)
         {
-          if(student.total<threshold)
+          if(student.getTotalMarks()<threshold)
           {
             System.out.println(student);
           }
@@ -132,7 +136,7 @@ public class MarksManager
         {
             for(int j=0; j<n-i-1; j++)
             {
-                if(students.get(j).total>students.get(j+1).total)
+                if(students.get(j).getTotalMarks()>students.get(j+1).getTotalMarks)
                 {
                     //here we swap the  students[j]and students[j+1]
                     Student temp = students.get(j);
@@ -175,7 +179,7 @@ public class MarksManager
                 
                 case 2:
                     System.out.print("Enter the threshold:");
-                    int threshold=scanner.nextInt();
+                    int threshold=scanner.nextDouble();
                     filterStudentByThreshold(threshold);
                     break;
                 
