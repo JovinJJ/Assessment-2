@@ -1,19 +1,22 @@
 Class Student
     Attributes:
-        String name
+        String Firstname
+        String Lastname
         String id
-        int markNo1
-        int markNo2
-        int markNo3
-        int total
+        double markNo1
+        double markNo2
+        double markNo3
+        double total
 
-    Constructor Student(String name, String id, int markNo1, int markNo2, int markNo3)
-        Initialize name, id, markNo1, markNo2, markNo3
+    Constructor Student(String Firstname, String Lastname, String id, double markNo1, double markNo2, double markNo3)
+        Initialize Firstname, Lastname, id, markNo1, markNo2, markNo3
         Calculate total as the sum of markNo1, markNo2, and markNo3
 
     Method toString()
         Return a string representation of the student with their marks and total
 
+    Method getTotalMarks()
+        Return total
 
 Class MarksManager
     Attributes:
@@ -29,8 +32,7 @@ Class MarksManager
             Split the line by comma into parts
             If parts length is greater than or equal to 3
                 Try to:
-                    Extract and trim firstName, lastName, and id
-                    Combine firstName and lastName to get the full name
+                    Extract and trim Firstname, Lastname, and id
                     Parse markNo1, markNo2, and markNo3 from parts or set to 0 if missing
                     Add a new Student to the students list
                 Catch NumberFormatException
@@ -38,16 +40,16 @@ Class MarksManager
             Else
                 Print error message for invalid line format
 
-    Method parseMark(String mark)
-        Try to parse the mark as an integer
+    Method parseDoubleWithDefault(String str, double defaultValue)
+        Try to parse the str as a double
         Catch NumberFormatException
-            Return 0 for invalid or missing mark
+            Return defaultValue for invalid or missing mark
 
     Method printStudentMarks()
         For each student in students
             Print the student's details
 
-    Method filterStudentByThreshold(int threshold)
+    Method filterStudentByThreshold(double threshold)
         For each student in students
             If student's total marks are less than threshold
                 Print the student's details
@@ -80,10 +82,10 @@ Class MarksManager
                 Default:
                     Print "Invalid Choice. Try again."
 
-    Method main(String[] args)
-        Create a new MarksManager instance
-        Initialize scanner for user input
-        Prompt user for filename
-        Read filename
-        Call readFromFile(filename)
-        Call displayMenu() 
+Method main(String[] args)
+    Create a new MarksManager instance
+    Initialize scanner for user input
+    Prompt user for filename
+    Read filename
+    Call readFromFile(filename)
+    Call displayMenu()
