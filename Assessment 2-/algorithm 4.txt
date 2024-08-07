@@ -1,0 +1,14 @@
+algorithm 4: Sort and Print Top 5 Highest and Lowest Marks
+
+1. Sort students by total marks using bubble sort:
+    a. Initialize n to the size of the students list
+    b. For i from 0 to n-1:
+        i. For j from 0 to n-i-1:
+            - If students[j].getTotalMarks() > students[j+1].getTotalMarks():
+                Swap students[j] and students[j+1]
+2. Print "Lowest marks TOP 5:"
+    a. For the first 5 students in the sorted list:
+        i. Print the student's details
+3. Print "Highest marks Top 5:"
+    a. For the last 5 students in the sorted list:
+        i. Print the student's details

@@ -1,0 +1,6 @@
+algorithm 3: Filter and Print Students Below Threshold
+
+1. Input: double threshold
+2. For each student in students:
+    a. If student's total marks < threshold:
+        i. Print the student's details
