@@ -116,7 +116,7 @@ public class MarksManager
     }
     
     //To filter and print students whos marks are below a threshold we do this://
-    public void filterStudentByThreshold(int threshold)
+    public void filterStudentByThreshold(double threshold)
     {
         for(Student student:students)
         {
@@ -136,7 +136,7 @@ public class MarksManager
         {
             for(int j=0; j<n-i-1; j++)
             {
-                if(students.get(j).getTotalMarks()>students.get(j+1).getTotalMarks)
+                if(students.get(j).getTotalMarks()>students.get(j+1).getTotalMarks())
                 {
                     //here we swap the  students[j]and students[j+1]
                     Student temp = students.get(j);
@@ -179,7 +179,7 @@ public class MarksManager
                 
                 case 2:
                     System.out.print("Enter the threshold:");
-                    int threshold=scanner.nextDouble();
+                    double threshold=scanner.nextDouble();
                     filterStudentByThreshold(threshold);
                     break;
                 
