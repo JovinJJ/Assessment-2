@@ -6,25 +6,31 @@
  * @version (a version number or a date)
  */
 
-import java.io.*; 
-import java.util.*;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 
 // this is the class for storing the information about each student//
 class Student 
     {
-        String name;
+        String Firstname;
+        String Lastname;
         String id;
-        int markNo1;
-        int markNo2;
-        int markNo3;
-        int total;
+        double markNo1;
+        double markNo2;
+        double markNo3;
+        double total;
         
         // this is a constructor to initialize the student data //
         
-        public Student(String name, String id, int markNo1, int markNo2, int markNo3)
+        public Student(String Firstname, String Lastname, String id, double markNo1, double markNo2, double markNo3)
         {
-            this.name=name;
+            this.Firstname=Firstname;
+            this.Lastname=Lastname;
             this.id=id;
             this.markNo1=markNo1;
             this.markNo2=markNo2;
